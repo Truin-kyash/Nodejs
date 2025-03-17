@@ -33,15 +33,12 @@ steps:
       git config --global user.email "suyash.keshari@truinc.com"
 
       # Add GitHub as a remote repository
-      git remote add github https://$(GITHUB_PAT)@github.com//Truin-kyash/Nodejs.git
+      git remote add github https://7zAL22PKCRRxSNeklOhTlDRJHVAV0HFNL8tOtMpSW2FrvahFtjfVJQQJ99BCACAAAAAAAAAAAAASAZDO2t3H@github.com//Truin-kyash/Nodejs.git
 
-      # Fetch latest from both Azure DevOps and GitHub
       git fetch origin
       git fetch github
 
-      # Merge changes
       git merge origin/main --allow-unrelated-histories -m "Merge from Azure DevOps"
 
-      # Push to GitHub
       git push github main
     displayName: "Sync Azure DevOps to GitHub"
