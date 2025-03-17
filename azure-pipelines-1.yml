@@ -1,0 +1,56 @@
+trigger:
+  branches:
+    include:
+      - main  
+
+pool:
+  name: 'Default'
+
+steps:
+
+  - checkout: self  
+
+  - task: UseNode@1
+    inputs:
+      version: '18.2'  
+    displayName: "Use Node.js"
+
+  - script: |
+      npm install
+    displayName: "Install Dependencies"
+
+  - script: |
+      git remote remove github || true
+      git remote add github https://$(GITHUB_PAT)@github.com/Truin-kyash/Nodejs.git
+    displayName: "Setup GitHub Remote"
+
+  - script: |
+      git config --global user.name "Truin-kyash"
+      git config --global user.email "suyash.keshari@truinc.com"
+
+      git remote remove github || true
+      git remote add github https://$(GITHUB_PAT)@github.com/Truin-kyash/Nodejs.git
+
+      git fetch origin main || echo "Branch 'main' does not exist remotely, skipping fetch."
+      git fetch github || echo "GitHub repository not accessible, skipping fetch."
+
+      git checkout main || git checkout -b main
+      git merge origin/main --allow-unrelated-histories -m "Merge from Azure DevOps" || echo "No changes to merge."
+
+      git push github main || echo "Nothing to push, skipping."
+    displayName: "Sync Azure DevOps to GitHub"
+
+  - script: |
+      echo "Installing GitHub CLI..."
+      if ! command -v gh &> /dev/null; then
+        curl -fsSL https://cli.github.com/install.sh | bash
+      fi
+    displayName: "Install GitHub CLI"
+ 
+  - script: |
+      echo "Creating a Pull Request on GitHub..."
+      gh auth status || gh auth login --with-token <<< "$(GITHUB_PAT)"
+      gh pr create --repo Truin-kyash/Nodejs --head main --base main --title "Auto Sync from Azure DevOps" --body "This PR syncs changes from Azure DevOps."
+    env:
+      GITHUB_PAT: $(GITHUB_PAT)
+    displayName: "Create Pull Request on GitHub"
