@@ -9,7 +9,9 @@ trigger:
       - main  
 
 pool:
+  name: 'Self-Hosted'
   vmImage: 'ubuntu-latest'
+  
 
 steps:
   - checkout: self  
