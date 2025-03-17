@@ -1,0 +1,47 @@
+# Node.js
+# Build a general Node.js project with npm.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+  branches:
+    include:
+      - main  
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+  - checkout: self  
+
+  - task: UseNode@1
+    inputs:
+      version: '18.2'  
+    displayName: "Use Node.js"
+
+  - script: |
+      npm install
+    displayName: "Install Dependencies"
+
+  - script: |
+      npm test
+    displayName: "Run Tests"
+    continueOnError: true  
+
+  - script: |
+      git config --global user.name "Azure DevOps Sync Bot"
+      git config --global user.email "suyash.keshari@truinc.com"
+
+      # Add GitHub as a remote repository
+      git remote add github https://$(GITHUB_PAT)@github.com//Truin-kyash/Nodejs.git
+
+      # Fetch latest from both Azure DevOps and GitHub
+      git fetch origin
+      git fetch github
+
+      # Merge changes
+      git merge origin/main --allow-unrelated-histories -m "Merge from Azure DevOps"
+
+      # Push to GitHub
+      git push github main
+    displayName: "Sync Azure DevOps to GitHub"
