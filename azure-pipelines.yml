@@ -45,3 +45,10 @@ steps:
       # Push to GitHub
       git push github main
     displayName: "Sync Azure DevOps to GitHub"
+
+  - script: |
+      echo "Creating a Pull Request on GitHub..."
+      gh pr create --repo Truin-kyash/Nodejs --head $BRANCH_NAME --base main --title "Auto Sync from Azure DevOps" --body "This PR syncs changes from Azure DevOps."
+    env:
+      GITHUB_TOKEN: 7zAL22PKCRRxSNeklOhTlDRJHVAV0HFNL8tOtMpSW2FrvahFtjfVJQQJ99BCACAAAAAAAAAAAAASAZDO2t3H
+    displayName: "Create Pull Request on GitHub"
