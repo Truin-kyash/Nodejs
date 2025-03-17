@@ -1,20 +1,16 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
-
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
-
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
-
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
-
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+This project contains the terraform deployment of Azure resources which consist of Resource Group MyProject-useast2-dev-resourcename:
+1. Resource Group
+2. Virtual Network
+3. Subnet
+4. App Sevice Plan
+5. Web ApplicationApp Sevice Plan
+6. Web Application
+7. Static web application
+8. Private endpoint
+9. Private IP address
+10.Custom Private DNS zones
+11.SSH Keys(RSA 256SHA)
+12.Virtual Machine
+13.Network Security Group
+14.Network Interface ID
+this file can help to scale the infra according to the need.
