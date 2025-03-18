@@ -33,8 +33,7 @@ jobs:
       - name: Push to Azure DevOps
         run: |
           git remote remove origin
-          git remote add origin https://41bw9YwYvNhN1DTfbFV2JkIJuul4PhmgHJiBmzdx3sHzvShT9kDQJQQJ99BCACAAAAAAAAAAAAASAZDO1CBv@dev.azure.com/suyashkeshari20010558/Repository-Sync/_git/Repository-Sync
-
+          git remote add azure https://$(AZURE_PAT)@dev.azure.com/suyashkeshari20010558/Repository%20Sync/_git/Node%20js
           git fetch azure
           git merge origin/main --allow-unrelated-histories -m "Merge from GitHub"
           git push azure main
